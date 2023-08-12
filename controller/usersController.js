@@ -25,9 +25,10 @@ const createUser = asyncHandler(async (request, response, next) => {
   }).exec();
 
   if (getSignupUser.length > 0) {
-    response
-      .status(400)
-      .json({ responseMsg: "You already have an account. Kindly Login" });
+    response.status(400).json({
+      responseCode: 0,
+      responseMsg: "You already have an account. Kindly Login",
+    });
     /*getRegResponse(
       new Error("You already have an account. Kindly Login"),
       null
@@ -41,7 +42,9 @@ const createUser = asyncHandler(async (request, response, next) => {
       dateOfBirth: request.body.dateOfBirth,
       gender: request.body.gender,
     });
-    response.status(200).json({ responseMsg: "Registration Successful" });
+    response
+      .status(200)
+      .json({ responseCode: 1, responseMsg: "Registration Successful" });
     //  getRegResponse(false, "Registration Successful");
   }
 });
