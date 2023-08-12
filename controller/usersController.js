@@ -25,7 +25,7 @@ const createUser = asyncHandler(async (request, response, next) => {
   }).exec();
 
   if (getSignupUser.length > 0) {
-    response.status(400).json({
+    response.json({
       responseCode: 0,
       responseMsg: "You already have an account. Kindly Login",
     });
