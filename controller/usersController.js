@@ -8,18 +8,42 @@ const getUser = asyncHandler(async (request, response, next) => {
 });
 
 const createUser = asyncHandler(async (request, response, next) => {
-  if (!request.body.email && !request.body.password && !request.body.confirmPassword) {
+  const bcrypt = require("bcrypt");
+
+  const passwordHash = bcrypt.hashSync(request.body.password, 10);
+
+  if (
+    !request.body.email &&
+    !request.body.password &&
+    !request.body.confirmPassword
+  ) {
     response.status(400);
     throw new Error("Please input a value");
   }
-  const user = await User.create({
+  const getSignupUser = await User.find({
     email: request.body.email,
-    password: request.body.password,
-    confirmPassword: request.body.confirmPassword,
-    dateOfBirth : request.body.dateOfBirth,
-    gender: request.body.gender
-  });
-  response.status(200).json(user);
+  }).exec();
+
+  if (getSignupUser.length > 0) {
+    response
+      .status(400)
+      .json({ responseMsg: "You already have an account. Kindly Login" });
+    /*getRegResponse(
+      new Error("You already have an account. Kindly Login"),
+      null
+    );*/
+  } else {
+    //insert into table and send response
+    const user = await User.create({
+      email: request.body.email,
+      password: passwordHash,
+      confirmPassword: passwordHash,
+      dateOfBirth: request.body.dateOfBirth,
+      gender: request.body.gender,
+    });
+    response.status(200).json({ responseMsg: "Registration Successful" });
+    //  getRegResponse(false, "Registration Successful");
+  }
 });
 
 const updateUser = asyncHandler(async (request, response, next) => {
