@@ -9,11 +9,12 @@ const getAnswer = asyncHandler(async (request, response, next) => {
 
 const createAnswer = asyncHandler(async (request, response, next) => {
   const answer = await Answer.create({
-    Answer: request.body.answer,
-    Question_id: request.body.question_id,
-    Person_id: request.body.person_id,
+    answer: request.body.answer,
+    question_id: request.body.question_id,
+    person_id: request.body.person_id,
   });
 
+  console.log(answer);
   response
     .status(200)
     .json({ responseCode: 1, responseMsg: " submitted successfylly" });
