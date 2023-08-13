@@ -1,10 +1,49 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../Model/userModel");
+const bcrypt = require("bcrypt");
 
 const getUser = asyncHandler(async (request, response, next) => {
-  const user = await User.find();
+  if (!request.body.email && !request.body.password) {
+    response.status(400);
+    throw new Error("Please input a value");
+  }
 
-  response.status(200).json(user);
+  const getSignupUser = await User.find({
+    email: request.body.email,
+  });
+  if (getSignupUser.length == 0) {
+    response.json({
+      responseCode: 0,
+      responseMsg: "Email address does not exist",
+      respSubmitted: false,
+    });
+    /*getRegResponse(
+      new Error("You already have an account. Kindly Login"),
+      null
+    );*/
+  } else {
+    //insert into table and send response
+    const hashedPassword = getSignupUser[0].password;
+    const _response = bcrypt.compareSync(request.body.password, hashedPassword);
+
+    if (_response == false) {
+      response.json({
+        responseCode: 0,
+        responseMsg: "Incorrect Password",
+        respSubmitted: false,
+      });
+    } else {
+      response.status(200).json({
+        responseCode: 1,
+        responseMsg: getSignupUser[0]._id,
+        respSubmitted: true,
+      });
+    }
+    /* response
+      .status(200)
+      .json({ responseCode: 1, responseMsg: "Registration Successful" });*/
+    //  getRegResponse(false, "Registration Successful");
+  }
 });
 
 const createUser = asyncHandler(async (request, response, next) => {

@@ -24,7 +24,7 @@ const {
 } = require("../controller/usersController");
 
 // get and post users routes
-router.route("/api/skeepuser").get(getUser).post(createUser);
+router.route("/api/skeepuser").post(getUser).post(createUser);
 
 //uodate and delete user routes
 router.route("/api/skeepuser/:id").put(updateUser).delete(deleteUser);
