@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../Model/userModel");
+const Answer = require("../Model/answerModel");
 const bcrypt = require("bcrypt");
 
 const getUser = asyncHandler(async (request, response, next) => {
@@ -33,11 +34,23 @@ const getUser = asyncHandler(async (request, response, next) => {
         respSubmitted: false,
       });
     } else {
-      response.status(200).json({
-        responseCode: 1,
-        responseMsg: getSignupUser[0]._id,
-        respSubmitted: true,
-      });
+      const getUserAnswers = await Answer.find({
+        _id: request.body._id,
+      }).exec();
+
+      if (getUserAnswers.length == 0) {
+        response.status(200).json({
+          responseCode: 1,
+          responseMsg: getSignupUser[0]._id,
+          respSubmitted: false,
+        });
+      } else {
+        response.status(200).json({
+          responseCode: 1,
+          responseMsg: getSignupUser[0]._id,
+          respSubmitted: true,
+        });
+      }
     }
     /* response
       .status(200)
