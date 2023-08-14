@@ -6,6 +6,10 @@ const questionSchema = mongoose.Schema(
       type: String,
       required: [true, "Please enter a value"],
     },
+    Q_id: {
+      type: String,
+      required: [true, "Please enter a value"],
+    },
   },
   {
     timestamps: true,

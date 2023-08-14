@@ -10,6 +10,7 @@ const getQuestion = asyncHandler(async (request, response, next) => {
 const createQuestion = asyncHandler(async (request, response, next) => {
   const question = await Question.create({
     Question: request.body.question,
+    Q_id: request.body.id,
   });
 
   response
