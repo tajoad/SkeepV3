@@ -36,8 +36,10 @@ router.route("/:id").put(updateTest).delete(deleteTest);
 
 // user routes
 
+router.route("/api/getkeepuser").post(getUser);
+
 // get and post users routes
-router.route("/api/skeepuser").post(getUser).post(createUser);
+router.route("/api/createskeepuser").post(createUser);
 
 //uodate and delete user routes
 router.route("/api/skeepuser/:id").put(updateUser).delete(deleteUser);
