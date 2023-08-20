@@ -12,19 +12,13 @@ const createAnswer = asyncHandler(async (request, response, next) => {
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
   response.setHeader("Access-Control-Allow-Credentials", true); // you
   response.setHeader("Content-Type", "application/json");
-  let userData = request.body;
 
-  await userData.forEach((element) => {
-    const answer = Answer.create({
-      Answer: element.answer,
-      Questionid: element.question_id,
-      Personid: element.person_id,
-    });
-    response
-      .status(200)
-      .json({ responseCode: 1, responseMsg: " submitted successfully" });
-    //  getRegResponse(false, "Registration Successful");
-  });
+  console.log(request.body);
+  const answer = Answer.create(request.body);
+  response
+    .status(200)
+    .json({ responseCode: 1, responseMsg: " submitted successfully" });
+  //  getRegResponse(false, "Registration Successful")
 });
 
 const updateAnswer = asyncHandler(async (request, response, next) => {
