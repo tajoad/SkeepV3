@@ -25,7 +25,6 @@ const createAnswer = asyncHandler(async (request, response, next) => {
       .json({ responseCode: 1, responseMsg: " submitted successfully" });
     //  getRegResponse(false, "Registration Successful");
   });
-  response.end();
 });
 
 const updateAnswer = asyncHandler(async (request, response, next) => {
