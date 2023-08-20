@@ -8,17 +8,24 @@ const getAnswer = asyncHandler(async (request, response, next) => {
 });
 
 const createAnswer = asyncHandler(async (request, response, next) => {
-  const answer = await Answer.create({
-    Answer: request.body.answer,
-    Questionid: request.body.question_id,
-    Personid: request.body.person_id,
-  });
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  response.setHeader("Access-Control-Allow-Credentials", true); // you
+  response.setHeader("Content-Type", "application/json");
+  let userData = request.body;
 
-  console.log(answer);
-  response
-    .status(200)
-    .json({ responseCode: 1, responseMsg: " submitted successfylly" });
-  //  getRegResponse(false, "Registration Successful");
+  await userData.forEach((element) => {
+    const answer = Answer.create({
+      Answer: element.answer,
+      Questionid: element.question_id,
+      Personid: element.person_id,
+    });
+    response
+      .status(200)
+      .json({ responseCode: 1, responseMsg: " submitted successfylly" });
+    //  getRegResponse(false, "Registration Successful");
+  });
+  response.end();
 });
 
 const updateAnswer = asyncHandler(async (request, response, next) => {
