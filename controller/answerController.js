@@ -22,7 +22,7 @@ const createAnswer = asyncHandler(async (request, response, next) => {
     });
     response
       .status(200)
-      .json({ responseCode: 1, responseMsg: " submitted successfylly" });
+      .json({ responseCode: 1, responseMsg: " submitted successfully" });
     //  getRegResponse(false, "Registration Successful");
   });
   response.end();
