@@ -9,9 +9,9 @@ const getAnswer = asyncHandler(async (request, response, next) => {
 
 const createAnswer = asyncHandler(async (request, response, next) => {
   const answer = await Answer.create({
-    answer: request.body.answer,
-    question_id: request.body.question_id,
-    person_id: request.body.person_id,
+    Answer: request.body.answer,
+    Questionid: request.body.question_id,
+    Personid: request.body.person_id,
   });
 
   console.log(answer);

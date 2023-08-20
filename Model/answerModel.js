@@ -6,11 +6,11 @@ const answerSchema = mongoose.Schema(
       type: String,
       required: [true, "Please enter a value"],
     },
-    Question_id: {
+    Questionid: {
       type: String,
       required: [true, "Please enter a value"],
     },
-    Person_id: {
+    Personid: {
       type: String,
     },
   },
