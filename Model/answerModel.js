@@ -11,7 +11,7 @@ const answerSchema = mongoose.Schema(
       required: [true, "Please enter a value"],
     },
     Person_id: {
-      type: Date,
+      type: String,
     },
   },
   {
