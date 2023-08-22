@@ -12,6 +12,7 @@ const answerSchema = mongoose.Schema(
     },
     Personid: {
       type: String,
+      required: [true, "Please enter a value"],
     },
   },
   {
